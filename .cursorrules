@@ -1,0 +1,7 @@
+When generating git commit messages:
+- Follow the Conventional Commits specification.
+- Use the format: <type>(<scope>): <description>
+- Types: feat, fix, docs, style, refactor, test, chore.
+- Keep the subject line under 60 characters.
+- Use present tense (e.g., "add feature" not "added feature").
+- Provide a detailed body if multiple changes are present.
