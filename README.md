@@ -4,7 +4,7 @@ Personal portfolio site for 2026. Built with Astro.
 
 ## Plan
 
-- [ ] Scaffold initial Astro project
+- [x] Scaffold initial Astro project
 - [ ] Get site live on Netlify for staging
 
 ## Commands
