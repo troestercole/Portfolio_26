@@ -37,24 +37,31 @@ const hrefMap = {
   linkedin: "linkedin",
 } as const
 
-const icons = import.meta.glob([
-  "node_modules/lucide-static/icons/*.svg",
-  "node_modules/simple-icons/icons/*.svg",
+const libraryIcons = import.meta.glob([
+  "/node_modules/lucide-static/icons/*.svg",
+  "/node_modules/simple-icons/icons/*.svg",
 ])
+
+const customIcons = import.meta.glob("/src/assets/icons/*.svg")
+
+const isLinkedIn = name === "linkedin" || href?.toString().includes("linkedin")
 
 // Get the right path from the icons glob
 const foundPath = () => {
+  if (isLinkedIn) {
+    return "/src/assets/icons/linkedin.svg"
+  }
   let foundPath: string | undefined = undefined
   // For x.com, we use the simple-icons X instead of the lucide-static X, since they overlap
   if (name === "x.com") {
     foundPath = "/node_modules/simple-icons/icons/x.svg"
   } else if (name) {
-    foundPath = Object.keys(icons).find((key) => key.includes(`/${name}.svg`))
+    foundPath = Object.keys(libraryIcons).find((key) => key.includes(`/${name}.svg`))
   } else if (href) {
     const hrefKey =
       Object.keys(hrefMap).find((key) => href.toString().includes(key)) || name
     const hrefValue = hrefMap[hrefKey as keyof typeof hrefMap]
-    const foundPath = Object.keys(icons)
+    const foundPath = Object.keys( libraryIcons)
       // If href, reverse so that simple-icons takes precedence
       .reverse()
       .find((key) => key.includes(`/${hrefValue}.svg`))
@@ -64,10 +71,24 @@ const foundPath = () => {
   return foundPath
 }
 
-const foundModule = foundPath() && icons[foundPath() as keyof typeof icons]
+const path = foundPath()
+const iconsMap = path?.startsWith("/src/") ? customIcons : libraryIcons
+const foundModule = path && iconsMap[path as keyof typeof iconsMap]
 const module = foundModule && ((await foundModule()) as any)
 const Comp = module?.default
 ---
+
+{
+  Comp && isLinkedIn && (
+    <Comp
+      height={24}
+      width={24}
+      fill="currentColor"
+      class="size-[1em] text-base"
+      {...rest}
+    />
+  )
+}
 
 {
   Comp && foundPath()?.includes("simple-icons") && (

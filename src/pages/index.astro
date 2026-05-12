@@ -1,7 +1,39 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/blocks/header-1.astro";
+
+const header = {
+  logo: {
+    text: "Cole Troester",
+    href: "/",
+  },
+  links: [
+    {
+      text: "Get in Touch",
+      href: "#",
+    }
+  ],
+  socials: [
+    "https://github.com/troestercole",
+    "https://www.linkedin.com/in/cole-troester/"
+  ],
+  menus: [
+    {
+      text: "Home",
+      href: "/",
+    },
+    {
+      text: "About",
+      href: "/about",
+    },
+    {
+      text: "Blog",
+      href: "/blog",
+    },
+  ],
+}
 ---
 
 <BaseLayout>
-  <h1>Hello World</h1>
+  <Header menus={header.menus} socials={header.socials} logo={header.logo} links={header.links} />
 </BaseLayout>
