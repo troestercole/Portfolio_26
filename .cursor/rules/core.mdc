@@ -1,0 +1,49 @@
+---
+description: Core project standards for this Astro portfolio
+alwaysApply: true
+---
+
+# Personal Portfolio — Astro + Fulldev UI
+
+## Stack
+
+- Framework: Astro 5 (static, no SSR unless explicitly needed)
+- UI Library: fulldev/ui v0.8.x (shadcn-compatible, vanilla Astro components)
+- Styling: Tailwind CSS v4 (container queries, NOT viewport breakpoints)
+- TypeScript: strict mode, path alias `@/*` maps to `./src/*`
+- Package manager: pnpm
+
+## Project Layout
+
+- `src/pages/` — Astro pages
+- `src/layouts/` — Layout components (Layout.astro, etc.)
+- `src/components/` — Custom components
+- `src/components/ui/` — Fulldev UI components (installed via shadcn CLI, do not hand-write)
+- `src/styles/` — global.css (imported from fulldev base stylesheet)
+- `src/assets/` — Images and static assets
+
+## Critical Rules
+
+- The root layout body MUST have `class="@container"` — fulldev/ui uses container-query variants like `@2xl:` and `@max-5xl:`, NOT viewport variants like `2xl:`
+- Never convert `@2xl:` / `@max-*:` Tailwind classes to plain viewport breakpoints
+- Use `@/*` path aliases for all internal imports, not relative paths
+- Use named exports everywhere; default exports only for Astro page files
+
+## Never Do
+
+- Do not hand-write components that exist in fulldev/ui — install them via the CLI
+- Do not install new npm packages without asking first
+- Do not use `any` in TypeScript — use `unknown` and narrow
+- Do not use inline styles — use Tailwind utility classes
+- Do not use React/Vue/Svelte — this is vanilla Astro only
+
+## Git Commit Messages
+
+When generating git commit messages:
+
+- Follow the Conventional Commits specification.
+- Use the format: <type>(<scope>): <description>
+- Types: feat, fix, docs, style, refactor, test, chore.
+- Keep the subject line under 60 characters.
+- Use present tense (e.g., "add feature" not "added feature").
+- Provide a detailed body if multiple changes are present.

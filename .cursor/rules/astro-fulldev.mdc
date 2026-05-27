@@ -1,0 +1,104 @@
+---
+description: Fulldev UI component usage patterns for Astro files
+globs: ['src/**/*.astro', 'src/**/*.ts']
+---
+
+# Fulldev UI Patterns
+
+## Installing Components
+
+Never manually create files in `src/components/ui/`. Always install via CLI:
+
+```bash
+npx shadcn@latest add @fulldev/[component-name]
+# Examples:
+npx shadcn@latest add @fulldev/button
+npx shadcn@latest add @fulldev/section
+npx shadcn@latest add @fulldev/tile
+# Install everything at once:
+npx shadcn@latest add @fulldev/components
+npx shadcn@latest add @fulldev/blocks
+```
+
+---
+
+description: Fulldev UI component usage patterns for Astro files
+globs: ["src/**/*.astro", "src/**/*.ts"]
+
+---
+
+# Fulldev UI Patterns
+
+## Installing Components
+
+Never manually create files in `src/components/ui/`. Always install via CLI:
+
+```bash
+npx shadcn@latest add @fulldev/[component-name]
+# Examples:
+npx shadcn@latest add @fulldev/button
+npx shadcn@latest add @fulldev/section
+npx shadcn@latest add @fulldev/tile
+# Install everything at once:
+npx shadcn@latest add @fulldev/components
+npx shadcn@latest add @fulldev/blocks
+```
+
+## Registry
+
+The fulldev registry entry in components.json must be:
+
+```json
+{
+  "registries": {
+    "@fulldev": "https://ui.full.dev/r/{name}.json"
+  }
+}
+```
+
+## Import Pattern
+
+```astro
+
+---
+
+import { Button } from "@/components/ui/button"
+import { Section, SectionContent, SectionProse, SectionActions } from "@/components/ui/section"
+import { Tile, TileContent, TileTitle, TileDescription } from "@/components/ui/tile"
+import { Icon } from "@/components/ui/icon"
+
+---
+```
+
+## Container Query Requirement
+
+The layout body wrapper must be @container:
+
+```astro
+---
+import "@/styles/global.css"
+---
+
+<body class="@container">
+  <slot />
+</body>
+```
+
+## Documentation
+
+Fulldev UI docs for AI agents: https://ui.full.dev/index.md
+Sitemap: https://ui.full.dev/sitemap.md
+
+Always consult these before suggesting component usage patterns.
+
+## Also add `components.json` to your project root
+
+If you haven't already run `npx shadcn@latest init`, do that first, then make sure this registry entry is present:
+
+```json
+{
+  "registries": {
+    "@fulldev": "https://ui.full.dev/r/{name}.json"
+  }
+}
+```
