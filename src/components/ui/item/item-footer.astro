@@ -1,0 +1,16 @@
+---
+import type { HTMLAttributes } from "astro/types"
+import { cn } from "@/lib/utils"
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  data-slot="item-footer"
+  class={cn("flex items-center gap-2 pt-2", className)}
+  {...props}
+>
+  <slot />
+</div>

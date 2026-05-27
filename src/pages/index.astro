@@ -1,39 +1,307 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Header from "../components/blocks/header-1.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import {
+  Section,
+  SectionContent,
+  SectionSplit,
+  SectionProse,
+  SectionMedia,
+  SectionActions,
+  SectionSpread,
+} from "@/components/ui/section";
+import { Marquee, MarqueeContent } from "@/components/ui/marquee";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
+import { Image } from "@/components/ui/image";
+import { Badge } from "@/components/ui/badge";
+import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item";
+import { AutoForm } from "@/components/ui/auto-form";
+import { Separator } from "@/components/ui/separator";
 
-const header = {
-  logo: {
-    text: "Cole Troester",
-    href: "/",
-  },
-  links: [
-    {
-      text: "Get in Touch",
-      href: "#",
-    }
-  ],
-  socials: [
-    "https://github.com/troestercole",
-    "https://www.linkedin.com/in/cole-troester/"
-  ],
-  menus: [
-    {
-      text: "Home",
-      href: "/",
-    },
-    {
-      text: "About",
-      href: "/about",
-    },
-    {
-      text: "Blog",
-      href: "/blog",
-    },
-  ],
-}
+import placeholderImage from "@/assets/placeholder.webp";
+
+const stack = [
+  "TypeScript", "JavaScript", "Astro", "React", "Node.js",
+  "PostgreSQL", "Swift", "SwiftUI", "C / C++", "HTML Email",
+  "Tailwind CSS", "REST APIs", "GraphQL", "Git", "Docker",
+];
 ---
 
-<BaseLayout>
-  <Header menus={header.menus} socials={header.socials} logo={header.logo} links={header.links} />
+<BaseLayout
+  title="Cole Troester — Full-Stack Developer"
+  description="Full-stack developer based in Waterloo, Iowa. Building across web, email, mobile, and embedded — wherever your idea needs to live."
+>
+
+  <!-- ═══ HERO ═══ -->
+  <div class="dark bg-background">
+    <Section size="lg" class="gap-10">
+
+      <div class="flex items-center gap-3">
+        <span class="size-2 shrink-0 rounded-full bg-primary animate-pulse"></span>
+        <span class="text-xs font-medium text-muted-foreground tracking-[0.2em] uppercase">
+          Waterloo, Iowa · Available for Freelance
+        </span>
+      </div>
+
+      <div class="flex flex-col gap-5">
+        <h1 class="text-[clamp(3.5rem,11cqw,9.5rem)] font-black leading-[0.88] tracking-tight text-foreground">
+          Cole<br />Troester
+        </h1>
+        <p class="text-[clamp(1.15rem,2.8cqw,2.2rem)] font-light italic text-muted-foreground leading-[1.35] max-w-[22ch]">
+          I <strong class="font-bold not-italic text-foreground">build</strong> for wherever your
+          <strong class="font-bold not-italic text-foreground">idea</strong> needs to
+          <strong class="font-bold not-italic text-foreground">live</strong>.
+        </p>
+        <p class="text-base text-muted-foreground max-w-[50ch] leading-relaxed">
+          Web applications. HTML email. Swift apps. Embedded firmware. I work across platforms so you don't have to hire across teams.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-x-10 gap-y-6 py-8 border-t border-b border-border/30">
+        <div>
+          <div class="text-4xl font-black text-foreground leading-none mb-1.5">8+</div>
+          <div class="text-[0.62rem] text-muted-foreground uppercase tracking-[0.18em]">Years Experience</div>
+        </div>
+        <div>
+          <div class="text-4xl font-black text-foreground leading-none mb-1.5">4</div>
+          <div class="text-[0.62rem] text-muted-foreground uppercase tracking-[0.18em]">Platforms</div>
+        </div>
+        <div>
+          <div class="text-4xl font-black text-primary leading-none mb-1.5">∞</div>
+          <div class="text-[0.62rem] text-muted-foreground uppercase tracking-[0.18em]">Attention to Detail</div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <Button href="#work" size="lg">
+          See my work
+          <Icon name="arrow-up-right" />
+        </Button>
+        <Button href="#contact" variant="outline" size="lg">
+          Let's work together
+        </Button>
+      </div>
+
+    </Section>
+  </div>
+
+  <!-- ═══ STACK MARQUEE ═══ -->
+  <div class="border-y border-border bg-muted/25 py-4 overflow-hidden">
+    <Marquee>
+      <MarqueeContent pauseOnHover class="gap-3">
+        {stack.map(skill => (
+          <span class="shrink-0 text-xs font-medium text-muted-foreground px-3.5 py-1.5 rounded-full border border-border bg-background whitespace-nowrap">
+            {skill}
+          </span>
+        ))}
+      </MarqueeContent>
+    </Marquee>
+  </div>
+
+  <!-- ═══ WORK ═══ -->
+  <Section id="work">
+
+    <SectionSpread class="items-end">
+      <SectionContent>
+        <SectionProse>
+          <p>Selected work</p>
+          <h2 class="font-black!">A few things I've built.</h2>
+        </SectionProse>
+      </SectionContent>
+      <SectionActions>
+        <Button href="/projects" variant="outline">
+          View all
+          <Icon name="arrow-up-right" />
+        </Button>
+      </SectionActions>
+    </SectionSpread>
+
+    <!-- Bento grid: stacks → 2-col → 5-col staggered -->
+    <div class="grid grid-cols-1 @3xl:grid-cols-2 @5xl:grid-cols-5 gap-3">
+
+      <!-- 1: Featured — 3/5 wide, tall -->
+      <a href="#"
+        class="group relative overflow-hidden rounded-2xl bg-muted block
+          aspect-[16/10] @5xl:col-span-3 @5xl:aspect-auto @5xl:min-h-[480px]"
+      >
+        <Image
+          src={placeholderImage}
+          alt="Project Lorem Ipsum"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+        <div class="absolute inset-0 flex flex-col justify-end p-6 @5xl:p-8">
+          <Badge variant="secondary" class="w-fit mb-3 text-[0.58rem] uppercase tracking-widest font-semibold">
+            Full-Stack Web App
+          </Badge>
+          <h3 class="text-white text-2xl @5xl:text-3xl font-bold leading-tight mb-2">
+            Project Lorem Ipsum
+          </h3>
+          <p class="text-white/60 text-sm leading-relaxed max-w-xs">
+            A placeholder for a real project — TypeScript, Astro, and a PostgreSQL backend. Details coming soon.
+          </p>
+        </div>
+        <div class="absolute top-5 right-5 size-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          <Icon name="arrow-up-right" class="size-4 text-white" />
+        </div>
+      </a>
+
+      <!-- 2: Side — 2/5 wide -->
+      <a href="#"
+        class="group relative overflow-hidden rounded-2xl bg-muted block
+          aspect-[4/3] @5xl:col-span-2 @5xl:aspect-auto"
+      >
+        <Image
+          src={placeholderImage}
+          alt="Email System Dolor Sit"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+        <div class="absolute inset-0 flex flex-col justify-end p-5 @5xl:p-6">
+          <Badge variant="secondary" class="w-fit mb-3 text-[0.58rem] uppercase tracking-widest font-semibold">
+            HTML Email
+          </Badge>
+          <h3 class="text-white text-xl font-bold leading-tight mb-1.5">Email System Dolor Sit</h3>
+          <p class="text-white/60 text-sm leading-relaxed">
+            Scalable template system. Consistent across 40+ clients and devices.
+          </p>
+        </div>
+      </a>
+
+      <!-- 3: Side — 2/5 wide (bottom left) -->
+      <a href="#"
+        class="group relative overflow-hidden rounded-2xl bg-muted block
+          aspect-[4/3] @5xl:col-span-2 @5xl:aspect-auto"
+      >
+        <Image
+          src={placeholderImage}
+          alt="Swift App Amet"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+        <div class="absolute inset-0 flex flex-col justify-end p-5 @5xl:p-6">
+          <Badge variant="secondary" class="w-fit mb-3 text-[0.58rem] uppercase tracking-widest font-semibold">
+            iOS / Swift
+          </Badge>
+          <h3 class="text-white text-xl font-bold leading-tight mb-1.5">Swift App Amet</h3>
+          <p class="text-white/60 text-sm leading-relaxed">
+            Native iPhone app. Offline-first data model, smooth UX, App Store ready.
+          </p>
+        </div>
+      </a>
+
+      <!-- 4: Featured — 3/5 wide (bottom right, reversed stagger) -->
+      <a href="#"
+        class="group relative overflow-hidden rounded-2xl bg-muted block
+          aspect-[16/10] @5xl:col-span-3 @5xl:aspect-auto @5xl:min-h-[340px]"
+      >
+        <Image
+          src={placeholderImage}
+          alt="Firmware Consectetur"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+        <div class="absolute inset-0 flex flex-col justify-end p-6 @5xl:p-8">
+          <Badge variant="secondary" class="w-fit mb-3 text-[0.58rem] uppercase tracking-widest font-semibold">
+            Embedded Firmware
+          </Badge>
+          <h3 class="text-white text-2xl @5xl:text-3xl font-bold leading-tight mb-2">
+            Firmware Consectetur
+          </h3>
+          <p class="text-white/60 text-sm leading-relaxed max-w-xs">
+            C++ firmware for custom hardware. Real-time sensors, power-aware, field-deployed.
+          </p>
+        </div>
+        <div class="absolute top-5 right-5 size-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          <Icon name="arrow-up-right" class="size-4 text-white" />
+        </div>
+      </a>
+
+    </div>
+  </Section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <div class="dark bg-background">
+    <Section id="about" class="gap-14">
+
+      <blockquote class="border-l-[3px] border-primary pl-7 @3xl:pl-10 text-[clamp(1.1rem,2.4cqw,1.9rem)] font-light italic leading-[1.5] text-foreground max-w-4xl">
+        "I put a lot of myself into everything I build. If it falls short, I take that personally —
+        which means I work hard to make sure it doesn't."
+      </blockquote>
+
+      <Separator class="bg-border/20" />
+
+      <SectionSplit class="@5xl:grid-cols-[2fr_3fr] @5xl:items-center">
+        <SectionMedia class="rounded-xl">
+          <Image src={placeholderImage} alt="Cole Troester" />
+        </SectionMedia>
+        <SectionProse>
+          <h2 class="font-black!">I didn't take the straight road. Turns out that's an advantage.</h2>
+          <p>
+            I'm Cole — based in Waterloo, Iowa with around eight years of experience building for the web and beyond. Geology dropout. Retail for a while. Then my best friend Ervin, a developer who'd been building since he could reach a keyboard, took a chance on me and taught me everything.
+          </p>
+          <p>
+            These days I work full-time at a marketing agency and take on freelance projects on the side. My favorite work is full-stack — solving hard problems across the whole system, from the database to the UI.
+          </p>
+          <SectionActions>
+            <Button href="/about" variant="outline">
+              Full story
+              <Icon name="arrow-right" />
+            </Button>
+          </SectionActions>
+        </SectionProse>
+      </SectionSplit>
+
+    </Section>
+  </div>
+
+  <!-- ═══ CONTACT ═══ -->
+  <Section id="contact">
+    <SectionSplit class="@5xl:grid-cols-[2fr_3fr] items-start">
+
+      <SectionContent>
+        <SectionProse>
+          <p>Get in touch</p>
+          <h2 class="font-black!">Let's build something.</h2>
+          <p>
+            Have a project in mind, or just want to see if we'd be a good fit? Drop me a line — I respond to every message.
+          </p>
+        </SectionProse>
+        <div class="flex flex-col gap-2 mt-2">
+          <Item href="mailto:cole@troester.dev" variant="muted">
+            <ItemMedia variant="icon"><Icon name="mail" /></ItemMedia>
+            <ItemContent>
+              <ItemTitle>Email</ItemTitle>
+              <ItemDescription>cole@troester.dev</ItemDescription>
+            </ItemContent>
+          </Item>
+          <Item href="https://github.com/troestercole" variant="muted">
+            <ItemMedia variant="icon"><Icon name="github" /></ItemMedia>
+            <ItemContent>
+              <ItemTitle>GitHub</ItemTitle>
+              <ItemDescription>github.com/troestercole</ItemDescription>
+            </ItemContent>
+          </Item>
+          <Item href="https://www.linkedin.com/in/cole-troester/" variant="muted">
+            <ItemMedia variant="icon"><Icon name="linkedin" /></ItemMedia>
+            <ItemContent>
+              <ItemTitle>LinkedIn</ItemTitle>
+              <ItemDescription>linkedin.com/in/cole-troester</ItemDescription>
+            </ItemContent>
+          </Item>
+        </div>
+      </SectionContent>
+
+      <AutoForm
+        fields={[
+          { type: "text",     label: "Name",    placeholder: "Your name",               required: true },
+          { type: "email",    label: "Email",   placeholder: "you@example.com",         required: true },
+          { type: "textarea", label: "Message", placeholder: "Tell me about your project...", required: true, rows: 5 },
+        ]}
+        submit="Send Message"
+      />
+
+    </SectionSplit>
+  </Section>
+
 </BaseLayout>
